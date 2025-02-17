@@ -1,7 +1,7 @@
 # Airline Delay Prediction using Naïve Bayes
 
 ## **Overview**
-In thhis model, we applied **Naïve Bayes** approach to predict flight delays based on historical flight data.  Using this model, we aim to learn conditional probabilities from features like airline, airport, day of the week, flight time, and flight length.
+In this model, we applied **Naïve Bayes** approach to predict flight delays based on historical flight data.  Using this model, we aim to learn conditional probabilities from features like airline, airport, day of the week, flight time, and flight length.
 
 ---
 
