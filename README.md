@@ -48,9 +48,6 @@ Our project is a **Supervised Probabilistic Classification model** as it learns 
 | `train_NB.py` | Naïve Bayes training and prediction | [train_NB.py](./train_NB.py) |
 | `predictions_NB.csv` | Model predictions (Delayed/Not Delayed) | [predictions_NB.csv](./predictions_NB.csv) |
 | `evaluate_NB.py` | Evaluates accuracy, precision, recall, and F1-score | [evaluate_NB.py](./evaluate_NB.py) |
-| `train_logistic.py` (optional) | Logistic Regression Model for comparison | [train_logistic.py](./train_logistic.py) |
-| `predictions_logistic.csv` (optional) | Logistic Regression predictions | [predictions_logistic.csv](./predictions_logistic.csv) |
-| `compare_models.py` | Compares Naïve Bayes vs Logistic Regression | [compare_models.py](./compare_models.py) |
 
 ---
 
