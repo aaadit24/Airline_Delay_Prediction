@@ -11,7 +11,7 @@ The model is designed to learn conditional probabilities from features like airl
 |------------|------------|
 | **Performance** | The model is evaluated based on accuracy, precision, recall, and F1-score |
 | **Environment** | The world consists of flight departure data, including airline names, departure & arrival airports, day of the week, and flight length |
-| **Actuators** | The model outputs **PredictedDelay = {0 (On time), 1 (Delayed)}** for each flight |
+| **Actuators** | The model outputs PredictedDelay = {0 (On time), 1 (Delayed)} for each flight |
 | **Sensors** | The model senses input features from the dataset including Airline, AirportFrom, AirportTo, DayOfWeek, Time, and Length |
 
 ---
@@ -43,6 +43,7 @@ Our project is a **Supervised Probabilistic Classification model** as it learns 
 ## **Code files and Project Structure**
 | **File** | **Description** | **Link** |
 |----------|----------------|----------|
+| `Airlines.csv` | Original Dataset taken from kaggle | [Airlines.csv](./Airlines.csv) |
 | `airlines_preprocessing.py` | Cleans and preprocesses the raw dataset | [airlines_preprocessing.py](./airlines_preprocessing.py) |
 | `preprocessed_airlines.csv` | Processed dataset ready for modeling | [preprocessed_airlines.csv](./preprocessed_airlines.csv) |
 | `train_NB.py` | Naïve Bayes training and prediction | [train_NB.py](./train_NB.py) |
