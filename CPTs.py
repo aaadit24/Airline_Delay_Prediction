@@ -46,4 +46,22 @@ p_delay_day_of_week.to_csv("p_delay_day_of_week.csv")
 p_delay_time.to_csv("p_delay_time.csv")
 p_delay_length.to_csv("p_delay_length.csv")
 
+# Combining the results from all probability tles into one file for quick and reasy reference
+combined_cpts = {
+    "P(Delay)": p_delay,
+    "P(Delay | Airline)": p_delay_airline,
+    "P(Delay | AirportFrom)": p_delay_airport_from,
+    "P(Delay | AirportTo)": p_delay_airport_to,
+    "P(Delay | DayOfWeek)": p_delay_day_of_week,
+    "P(Delay | Time)": p_delay_time,
+    "P(Delay | Length)": p_delay_length,
+}
+
+# Converting into a dataframe and saving as a summary file
+with open("p_delay_summary.csv", "w") as f:
+    for key, df in combined_cpts.items():
+        f.write(f"=== {key} ===\n")
+        df.to_csv(f)
+        f.write("\n\n")
+
 print("CPTs have been successfully generated and saved as CSV files")
