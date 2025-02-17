@@ -44,11 +44,11 @@ Our project is a **Supervised Probabilistic Classification model** as it learns 
 | **File** | **Description** | **Link** |
 |----------|----------------|----------|
 | `Airlines.csv` | Original Dataset taken from kaggle | [Airlines.csv](./Airlines.csv) |
-| `airlines_preprocessing.py` | Cleans and preprocesses the raw dataset | [airlines_preprocessing.py](./airlines_preprocessing.py) |
-| `preprocessed_airlines.csv` | Processed dataset ready for modeling | [preprocessed_airlines.csv](./preprocessed_airlines.csv) |
+| `airlines_preprocessing.py` | Cleaned and preprocessed the raw dataset | [airlines_preprocessing.py](./airlines_preprocessing.py) |
+| `preprocessed_airlines.csv` | Processed dataset which was used for modeling | [preprocessed_airlines.csv](./preprocessed_airlines.csv) |
 | `train_NB.py` | Naïve Bayes training and prediction | [train_NB.py](./train_NB.py) |
-| `predictions_NB.csv` | Model predictions (Delayed/Not Delayed) | [predictions_NB.csv](./predictions_NB.csv) |
-| `evaluate_NB.py` | Evaluates accuracy, precision, recall, and F1-score | [evaluate_NB.py](./evaluate_NB.py) |
+| `predictions_NB.csv` | Dataset with model predictions (Delayed/Not Delayed) | [predictions_NB.csv](./predictions_NB.csv) |
+| `evaluate_NB.py` | Code to evaluate the model and find accuracy, precision, recall, and F1-score | [evaluate_NB.py](./evaluate_NB.py) |
 
 ---
 
