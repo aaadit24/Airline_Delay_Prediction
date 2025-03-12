@@ -80,13 +80,13 @@ To validate **Naïve Bayes’ independence assumption**, we generated a **correl
 
 | **Metric**        | **Baseline (Threshold = 0.5)** | **Updated (Threshold = 0.45)** |
 |-------------------|-------------------------------|-------------------------------|
-| **Accuracy**      | 62.73%                         | **63.25%** |
-| **Precision**     | 61.63%                         | **59.45%** |
-| **Recall**        | 43.24%                         | **55.01%** |
-| **F1 Score**      | 50.82%                         | **57.15%** |
-| **Specificity**   | —                              | **69.86%** |
-| **False Positive Rate (FPR)** | — | **30.14%** |
-| **False Negative Rate (FNR)** | — | **44.99%** |
+| **Accuracy**      | 62.73%                         | 63.25% |
+| **Precision**     | 61.63%                         | 59.45% |
+| **Recall**        | 43.24%                         | 55.01% |
+| **F1 Score**      | 50.82%                         | 57.15% |
+| **Specificity**   | —                              | 69.86% |
+| **False Positive Rate (FPR)** | — | 30.14% |
+| **False Negative Rate (FNR)** | — | 44.99% |
 
 ---
 
@@ -101,9 +101,9 @@ To validate **Naïve Bayes’ independence assumption**, we generated a **correl
 ### **Interpretation & Insights**
 - This udated model successfully classifies 63.25% of all flights correctly.
 - Precision is now 59.45%, meaning when the model predicts a flight will be delayed, it is correct 59.45% of the time.
-- Recall has improved to 55.01%, meaning the model correctly detects **more than half of actual delays.
-- False Negative Rate (FNR) is 44.99%, meaning there are **108,083 delayed flights that the model failed to catch.
-- False Positive Rate (FPR) is 30.14%, meaning **90,149 flights were predicted as delayed but were actually on time.
+- Recall has improved to 55.01%, meaning the model correctly detects more than half of actual delays.
+- False Negative Rate (FNR) is 44.99%, meaning there are 108,083 delayed flights that the model failed to catch.
+- False Positive Rate (FPR) is 30.14%, meaning 90,149 flights were predicted as delayed but were actually on time.
 - Specificity (Correct On-Time Predictions) is 69.86% showing that it does well at identifying on-time flights.
 
 A confusion matrix visualization has been saved as [`confusion_matrix_plot.png`](./confusion_matrix_plot.png).
