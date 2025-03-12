@@ -22,28 +22,33 @@ p_delay_time = compute_CP('Time')
 p_delay_length = compute_CP('Length')
 
 # Function to compute log probability for prediction
-def predict_delay(row):
+def predict_delay(row, threshold=0.45):  # Using the new threshold 0.45
     log_p_delay_1 = np.log(p_delay[1])
     log_p_delay_0 = np.log(p_delay[0])
 
-    for feature, cpt in zip(['Airline', 'AirportFrom', 'AirportTo', 'DayOfWeek', 'Time', 'Length'], 
-                            [p_delay_airline, p_delay_airport_from, p_delay_airport_to, 
+    for feature, cpt in zip(['Airline', 'AirportFrom', 'AirportTo', 'DayOfWeek', 'Time', 'Length'],
+                            [p_delay_airline, p_delay_airport_from, p_delay_airport_to,
                              p_delay_day_of_week, p_delay_time, p_delay_length]):
         if row[feature] in cpt.columns:
             log_p_delay_1 += np.log(cpt.loc[1, row[feature]] + 1e-5)
             log_p_delay_0 += np.log(cpt.loc[0, row[feature]] + 1e-5)
 
-    if log_p_delay_1 > log_p_delay_0:
-        return 1
-    else:
-        return 0
+    # Convert log probabilities back to normal probabilities
+    p_delay_1 = np.exp(log_p_delay_1)
+    p_delay_0 = np.exp(log_p_delay_0)
+
+    # Normalize to get P(Delay=1 | Features)
+    prob_delay_1 = p_delay_1 / (p_delay_1 + p_delay_0)
+
+    # Changed: Using 0.45 as the threshold for classification
+    return 1 if prob_delay_1 > threshold else 0
 
 # Applying the prediciton function to all the rows
-df['PredictedDelay'] = df.apply(predict_delay, axis = 1)
+df['PredictedDelay'] = df.apply(lambda row: predict_delay(row, threshold=0.45), axis=1)
 
 # Evaluate the performance of this NB model
 accuracy = np.mean(df['PredictedDelay'] == df['Delay'])
-print(f"NB Model Accuracy: {accuracy:.4f}")
+print(f"NB Model Accuracy (Threshold = 0.45): {accuracy:.4f}")
 
 # Saving predictions
 df.to_csv("predictions_NB.csv", index=False)
