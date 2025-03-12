@@ -13,7 +13,7 @@ We further analyzed the dataset structure, feature interactions, and the assumpt
 |----------------|-----------------------------------------------|
 | **Performance** | The model is evaluated based on accuracy, precision, recall, and F1-score. We also compared performance at different threshold values. |
 | **Environment** | The world consists of flight departure data, including airline names, departure & arrival airports, day of the week, and flight length. |
-| **Actuators** | The model outputs PredictedDelay = {0 (On time), 1 (Delayed)}** for each flight. |
+| **Actuators** | The model outputs PredictedDelay = {0 (On time), 1 (Delayed)} for each flight. |
 | **Sensors** | The model senses input features from the dataset, including Airline, AirportFrom, AirportTo, DayOfWeek, Time, and Length. |
 
 ---
