@@ -34,8 +34,8 @@ Our project is a **Supervised Probabilistic Classification model** as it learns 
  - Through this model, we have estimated the probability of a flight delay based on different features (Airline, Airport, Time, etc.) using this formula:  
      \[
      P(Delay | Features) = \frac{P(Features | Delay) P(Delay)}{P(Features)}
-     \]  
-   - This helped the model decide whether a flight is likely to be delayed or on time.
+     \]
+ - This helped the model decide whether a flight is likely to be delayed or on time.
 
 ### **2. Using Log Probabilities**
 - Instead of multiplying probabilities (which can become extremely small), we convert them into **log values**. This **prevents numerical errors** and makes calculations **more stable**.
