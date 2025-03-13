@@ -47,63 +47,53 @@ Our project is a **Supervised Probabilistic Classification model** as it learns 
 
 ## **Probability Formulas for Naïve Bayes Model**
 
-- **Bayes' Theorem** for classification:
+- **Bayes' Theorem for classification:**
   
   $$
-  \[
   P(Delay | Features) = \frac{P(Features | Delay) P(Delay)}{P(Features)}
-  \]
+  $$
 
 - Since we assume feature independence, the formula simplifies to:
 
   $$
-  \[
-  P(Delay | Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length) = \frac{P(Airline | Delay) P(AirportFrom | Delay) P(AirportTo | Delay) P(DayOfWeek | Delay) P(Time | Delay)  P(Length | Delay) P(Delay)}{P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length)}
-  \]
+  P(Delay | Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length) =
+  \frac{P(Airline | Delay) P(AirportFrom | Delay) P(AirportTo | Delay) P(DayOfWeek | Delay) P(Time | Delay) P(Length | Delay) P(Delay)}
+  {P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length)}
   $$
 
-- The denominator \( P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length) \) is constant across classifications, so we only compute the numerator.
+- The denominator \(P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length)\) is constant across classifications, so we only compute the numerator.
 
 ### **Computing Conditional Probabilities**
 - For each feature \( X_i \), we estimate its probability using:
 
   $$
-  \[
   P(X_i | Delay) = \frac{\text{Count}(X_i, Delay)}{\sum_{X_i} \text{Count}(X_i, Delay)}
-  \]
   $$
 
-- To avoid zero probabilities, we applied Laplace Smoothing:
+- To avoid zero probabilities, Laplace Smoothing is applied:
+
   $$
-  \[
   P(X_i | Delay) = \frac{\text{Count}(X_i, Delay) + 1}{\sum_{X_i} \text{Count}(X_i, Delay) + k}
-  \]
   $$
 
-  - \( k \) is the number of unique values in feature \( X_i \).
+  - \(k\) is the number of unique values in feature \(X_i\).
 
 ### **Log Probability Computation**
 - Multiplying many small probabilities can lead to numerical instability, so we use log probabilities:
 
   $$
-  \[
   \log P(Delay | Features) = \log P(Delay) + \sum_{i} \log P(X_i | Delay)
-  \]
   $$
 
   $$
-  \[
   \log P(NoDelay | Features) = \log P(NoDelay) + \sum_{i} \log P(X_i | NoDelay)
-  \]
   $$
 
 ### **Prediction Decision**
-- The final classification is based on a **threshold (default = 0.45)**:
+- The final classification is based on a threshold (default = 0.45):
 
   $$
-  \[
   \frac{e^{\log P(Delay | Features)}}{e^{\log P(Delay | Features)} + e^{\log P(NoDelay | Features)}}
-  \]
   $$
 
 - If the computed probability is greater than 0.45, the flight is predicted as delayed. Otherwise, it is predicted as on time.
