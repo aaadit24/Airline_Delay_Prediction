@@ -65,29 +65,22 @@ Our project is a **Supervised Probabilistic Classification model** as it learns 
 
 - To avoid zero probabilities, Laplace Smoothing is applied:
 
-  $$
-  P(X_i | Delay) = \frac{\text{Count}(X_i, Delay) + 1}{\sum_{X_i} \text{Count}(X_i, Delay) + k}
-  $$
+  `P(X_i | Delay) = \frac{\text{Count}(X_i, Delay) + 1}{\sum_{X_i} \text{Count}(X_i, Delay) + k}`
 
   - \(k\) is the number of unique values in feature \(X_i\).
 
 ### **Log Probability Computation**
 - Multiplying many small probabilities can lead to numerical instability, so we use log probabilities:
 
-  $$
-  \log P(Delay | Features) = \log P(Delay) + \sum_{i} \log P(X_i | Delay)
-  $$
+  
+  `log P(Delay | Features) = log P(Delay) + \sum_{i} log P(X_i | Delay)`
 
-  $$
-  \log P(NoDelay | Features) = \log P(NoDelay) + \sum_{i} \log P(X_i | NoDelay)
-  $$
+  `log P(NoDelay | Features) = log P(NoDelay) + \sum_{i} log P(X_i | NoDelay)`
 
 ### **Prediction Decision**
 - The final classification is based on a threshold (default = 0.45):
 
-  $$
-  \frac{e^{\log P(Delay | Features)}}{e^{\log P(Delay | Features)} + e^{\log P(NoDelay | Features)}}
-  $$
+  `e^{log P(Delay | Features)} / (e^{log P(Delay | Features)} + e^{log P(NoDelay | Features)})`
 
 - If the computed probability is greater than 0.45, the flight is predicted as delayed. Otherwise, it is predicted as on time.
 
