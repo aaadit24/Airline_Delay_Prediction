@@ -56,6 +56,10 @@ Our project is a **Supervised Probabilistic Classification model** as it learns 
 - Since we assume feature independence, the formula simplifies to:
 
   $$
+  P(Delay | Features) = \frac{P(Features | Delay) P(Delay)}{P(Features)}
+  $$
+  
+  $$
   P(Delay | Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length) =
   \frac{P(Airline | Delay) P(AirportFrom | Delay) P(AirportTo | Delay) P(DayOfWeek | Delay) P(Time | Delay) P(Length | Delay) P(Delay)}
   {P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length)}
