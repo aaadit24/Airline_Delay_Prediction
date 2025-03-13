@@ -59,11 +59,9 @@ Our project is a **Supervised Probabilistic Classification model** as it learns 
 - The denominator `P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length)` is constant across classifications, so we only compute the numerator.
 
 ### **Computing Conditional Probabilities**
-- For each feature \( X_i \), we estimate its probability using:
+- For each feature \(X_i\), we estimate its probability using:
 
-  $$
-  P(X_i | Delay) = \frac{\text{Count}(X_i, Delay)}{\sum_{X_i} \text{Count}(X_i, Delay)}
-  $$
+  `P(X_i | Delay) = \frac{\text{Count}(X_i, Delay)}{\sum_{X_i} \text{Count}(X_i, Delay)}`
 
 - To avoid zero probabilities, Laplace Smoothing is applied:
 
