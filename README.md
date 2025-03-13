@@ -61,7 +61,7 @@ Our project is a **Supervised Probabilistic Classification model** as it learns 
   {P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length)}
   $$
 
-- The denominator \(P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length)\) is constant across classifications, so we only compute the numerator.
+- The denominator `P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length)` is constant across classifications, so we only compute the numerator.
 
 ### **Computing Conditional Probabilities**
 - For each feature \( X_i \), we estimate its probability using:
