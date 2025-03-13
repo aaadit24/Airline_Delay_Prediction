@@ -54,7 +54,7 @@ Our project is a **Supervised Probabilistic Classification model** as it learns 
   $$
 
 - Since we assume feature independence, the formula simplifies to:
-  `P(Delay | Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length) = P(Airline | Delay) P(AirportFrom | Delay) P(AirportTo | Delay) P(DayOfWeek | Delay) P(Time | Delay) P(Length | Delay) P(Delay)\P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length)`
+  `P(Delay | Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length) = P(Airline | Delay) P(AirportFrom | Delay) P(AirportTo | Delay) P(DayOfWeek | Delay) P(Time | Delay) P(Length | Delay) P(Delay) / P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length)`
 
 - The denominator `P(Airline, AirportFrom, AirportTo, DayOfWeek, Time, Length)` is constant across classifications, so we only compute the numerator.
 
