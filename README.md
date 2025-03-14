@@ -94,9 +94,6 @@ To better understand the dataset and feature relationships, we performed an **ex
 - **Certain airlines** had higher delay rates than others.
 - **Some airports were more prone to delays**, particularly in congested hubs.
 
-### **Correlation Heatmap (Feature Interactions)**
-To validate **Naïve Bayes’ independence assumption**, we generated a **correlation heatmap** of numerical features.
-
 **Findings:**
 - **Flight Length and Time** had a moderate correlation.
 - **Day of the Week** showed minor correlations with delays.
@@ -158,8 +155,3 @@ A confusion matrix visualization has been saved as [`confusion_matrix_plot.png`]
   - More false positives occur (lower precision at 59.45%).
   - If the cost of missing a delay is higher than predicting a false delay, this is an acceptable tradeoff.
 - We also identify that further tuning could explore thresholds between 0.40 and 0.50 to optimize recall-precision tradeoff.
-
----
-
-## **Citations**
-- **Seaborn Documentation (For Heatmaps):** [https://seaborn.pydata.org/](https://seaborn.pydata.org/)
