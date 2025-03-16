@@ -84,14 +84,6 @@ By combining these models, we refine predictions, reduce false alarms, and impro
 - \(X\) = Input feature (Naïve Bayes probability of delay)
 
 - Logistic Regression is helping us adjust the decision boundary and making final predictions based on learned weights.
-
-  $$
-  P(Y = 1 | X) = \frac{1}{1 + e^{-(W X + b)}}
-  $$
-  - \( W \) = Weights learned by the model
-  - \( b \) = Bias term
-  - \( X \) = Input features (Naïve Bayes probabilities)
-
 ---
 
 ## **Code files and Project Structure**
