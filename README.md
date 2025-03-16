@@ -1,9 +1,13 @@
-# **Airline Delay Prediction using Naïve Bayes**
+# **Airline Delay Prediction using Hybrid Naïve Bayes + Logistic Regression**
 
 ## **Overview**
-In this model, we applied the **Naïve Bayes approach** to predict flight delays based on historical flight data. Using this model, we aim to learn conditional probabilities from features such as airline, airport, day of the week, flight time, and flight length.
+In our Milestone 2, we used a Naïve Bayes (NB) model to predict flight delays. It performed well in estimating probabilities and gave valuable insights into how different features (airline, airport, day, time, flight length) impact delays. However, it assumes feature independence, which may not always be realistic.
 
-We further analyzed the dataset structure, feature interactions, and the assumptions made by Naïve Bayes to improve our model’s performance. We also evaluated alternative decision threshold values to see if lowering it to **0.45** would increase recall.
+For Milestone 3, we improved our model by implementing a Hybrid approach that combines Naïve Bayes with Logistic Regression (NB + LR):
+- **Naïve Bayes** calculates initial delay probabilities.
+- **Logistic Regression** takes these probabilities as input and adjusts the decision boundary to reduce false positives and increase specificity.
+
+By combining these models, we refine predictions, reduce false alarms, and improve decision-making.
 
 ---
 
@@ -18,32 +22,18 @@ We further analyzed the dataset structure, feature interactions, and the assumpt
 
 ---
 
-## **Type of Agent**
-This is a **Goal-Based Agent** as the model has a clear goal of predicting flight delays accurately and chooses actions (**predict delay or no delay**) based on learned probabilities. It also uses **historical data** to make probabilistic decisions.
+## **Why a Hybrid Approach?**
+### **Milestone 2 (Naïve Bayes Model)**
+- **Strengths:** Provided useful probability estimates of delays.
+- **Limitations:** Assumes feature independence, leading to potential false positives.
 
-Alternatively, it can also be classified as a **Utility-Based Agent** since it **maximizes the probability of correct predictions** by optimizing the **decision threshold** and **feature selection** to enhance recall and precision.
-
----
-
-## **Probabilistic Modeling: Where Does This Fit?**
-Our project is a **Supervised Probabilistic Classification model** as it learns from past flight data to predict delays.
-
-### **How It Is Set up:**
-
-### **1. Naïve Bayes Theorem**
- - Through this model, we have estimated the probability of a flight delay based on different features (Airline, Airport, Time, etc.) using this formula:  
-     \[
-     P(Delay | Features) = \frac{P(Features | Delay) P(Delay)}{P(Features)}
-     \]
- - This helped the model decide whether a flight is likely to be delayed or on time.
-
-### **2. Using Log Probabilities**
-- Instead of multiplying probabilities (which can become extremely small), we convert them into **log values**. This **prevents numerical errors** and makes calculations **more stable**.
-
-### **3. Computing Probabilities Dynamically**
-- Another thing we did in training our first model was calculate these probabilities on the fly in `train_NB.py` instead of relying on precomputed probability tables (CPTs), which has made our model more flexible and adaptable to different dataset.
+### **Milestone 3 (NB + Logistic Regression)**
+- **Why Logistic Regression?** It adjusts probability-based classification by optimizing weights for better decision-making.
+- **Key Improvement:** Reduces false positives (incorrectly predicting delays).
+- **Trade-off:** Recall decreased slightly, but precision and specificity increased, making delay predictions more reliable.
 
 ---
+
 
 ## **Probability Formulas for Naïve Bayes Model**
 
@@ -84,74 +74,96 @@ Our project is a **Supervised Probabilistic Classification model** as it learns 
 
 - If the computed probability is greater than 0.45, the flight is predicted as delayed. Otherwise, it is predicted as on time.
 
----
+### **Logisitc Regression Model**
+- After computing Naïve Bayes probabilities, we feed them into Logistic Regression, which applies the sigmoid function:
 
-## **Exploratory Data Analysis & Feature Selection**
-To better understand the dataset and feature relationships, we performed an **exploratory data analysis (EDA)**. Key insights include:
+  `P(Y = 1 | X) = \frac{1}{1 + e^{-(W X + b)}}`
 
-### **Feature Importance Analysis**
-- **Time and Flight Length** were **critical factors** in predicting delays.
-- **Certain airlines** had higher delay rates than others.
-- **Some airports were more prone to delays**, particularly in congested hubs.
+- \(W\) = Weights learned by the model
+- \(b\) = Bias term
+- \(X\) = Input feature (Naïve Bayes probability of delay)
 
-**Findings:**
-- **Flight Length and Time** had a moderate correlation.
-- **Day of the Week** showed minor correlations with delays.
+- Logistic Regression is helping us adjust the decision boundary and making final predictions based on learned weights.
 
-**Action Taken:** Since features are mostly independent, **Naïve Bayes remains a reasonable choice** for our model.
+  $$
+  P(Y = 1 | X) = \frac{1}{1 + e^{-(W X + b)}}
+  $$
+  - \( W \) = Weights learned by the model
+  - \( b \) = Bias term
+  - \( X \) = Input features (Naïve Bayes probabilities)
 
 ---
 
 ## **Code files and Project Structure**
 | **File** | **Description** | **Link** |
 |----------|----------------|----------|
-| `Airlines.csv` | Original Dataset taken from kaggle | [Airlines.csv](./Airlines.csv) |
+| `Airlines.csv` | Original Dataset taken from Kaggle | [Airlines.csv](./Airlines.csv) |
 | `airlines_preprocessing.py` | Cleaned and preprocessed the raw dataset | [airlines_preprocessing.py](./airlines_preprocessing.py) |
-| `preprocessed_airlines.csv` | Processed dataset which was used for modeling | [preprocessed_airlines.csv](./preprocessed_airlines.csv) |
+| `preprocessed_airlines.csv` | Processed dataset used for modeling | [preprocessed_airlines.csv](./preprocessed_airlines.csv) |
 | `train_NB.py` | Naïve Bayes training and prediction | [train_NB.py](./train_NB.py) |
+| `train_NB_LR.py` | Hybrid Naïve Bayes + Logistic Regression model training | [train_NB_LR.py](./train_NB_LR.py) |
 | `predictions_NB.csv` | Dataset with model predictions (Delayed/Not Delayed) | [predictions_NB.csv](./predictions_NB.csv) |
-| `evaluate_NB.py` | Code to evaluate the model and find accuracy, precision, recall, and F1-score | [evaluate_NB.py](./evaluate_NB.py) |
+| `predictions_NB_LR.csv` | Dataset with model predictions for NEW MODEL (Delayed/Not Delayed) | [predictions_NB_LR.csv](./predictions_NB_LR.csv) |
+| `evaluate_NB_LR.py` | Code to evaluate the hybrid model | [evaluate_NB_LR.py](./evaluate_NB_LR.py) |
 
 ---
 
 ## **Results & Model Performance**
 
-| **Metric**        | **Baseline (Threshold = 0.5)** | **Updated (Threshold = 0.45)** |
-|-------------------|-------------------------------|-------------------------------|
-| **Accuracy**      | 62.73%                         | 63.25% |
-| **Precision**     | 61.63%                         | 59.45% |
-| **Recall**        | 43.24%                         | 55.01% |
-| **F1 Score**      | 50.82%                         | 57.15% |
-| **Specificity**   | —                              | 69.86% |
-| **False Positive Rate (FPR)** | — | 30.14% |
-| **False Negative Rate (FNR)** | — | 44.99% |
+| **Metric**        | **Naïve Bayes (Threshold = 0.45)** | **Hybrid NB + Logistic Regression** |
+|-------------------|-----------------------------------|------------------------------------|
+| **Accuracy**      | 63.26%                            | **63.89%** |
+| **Precision**     | 59.47%                            | **66.45%** |
+| **Recall**        | 55.05%                            | **38.24%** |
+| **F1 Score**      | 57.17%                            | **48.55%** |
+| **Specificity**   | 69.86%                            | **84.49%** |
+| **False Positive Rate (FPR)** | 30.14% | **15.51%** |
+| **False Negative Rate (FNR)** | 44.95% | **61.76%** |
+
+### **Key Findings**
+- **Higher precision (66.45%)** → The hybrid model makes fewer incorrect delay predictions.
+- **Significantly lower False Positive Rate (FPR: 15.51%)** → Reduces unnecessary delay alerts.
+- **Higher specificity (84.49%)** → The model is better at identifying on-time flights.
 
 ---
 
 ## **Confusion Matrix Analysis**
-### **Confusion Matrix (Threshold = 0.45)**
+### **Naïve Bayes Model (Threshold = 0.45)**
 
 | **Actual \ Predicted** | **Delayed** | **On Time** |
 |------------------------|------------|------------|
-| **Actually Delayed**   | 132,181    | 108,083 (False Negatives) |
-| **Actually On Time**   | 90,149 (False Positives) | 208,970 |
+| **Actually Delayed**   | 132,260    | 108,004 (False Negatives) |
+| **Actually On Time**   | 90,147 (False Positives) | 208,972 |
+
+### **Hybrid Model (NB + Logistic Regression, Threshold = 0.45)**
+
+| **Actual \ Predicted** | **Delayed** | **On Time** |
+|------------------------|------------|------------|
+| **Actually Delayed**   | **91,886**  | **148,378** (False Negatives) |
+| **Actually On Time**   | **46,402** (False Positives) | **252,717** |
 
 ### **Interpretation & Insights**
-- This udated model successfully classifies 63.25% of all flights correctly.
-- Precision is now 59.45%, meaning when the model predicts a flight will be delayed, it is correct 59.45% of the time.
-- Recall has improved to 55.01%, meaning the model correctly detects more than half of actual delays.
-- False Negative Rate (FNR) is 44.99%, meaning there are 108,083 delayed flights that the model failed to catch.
-- False Positive Rate (FPR) is 30.14%, meaning 90,149 flights were predicted as delayed but were actually on time.
-- Specificity (Correct On-Time Predictions) is 69.86% showing that it does well at identifying on-time flights.
+- The Hybrid model improves accuracy from 63.26% → 63.89%.
+- False Positive Rate (FPR) dropped from 30.14% → 15.51%, meaning fewer flights were wrongly predicted as delayed.
+- Higher specificity (84.49%) shows that on-time flights are predicted more accurately.
+- Recall is lower (38.24%), meaning fewer actual delays were caught.
 
-A confusion matrix visualization has been saved as [`confusion_matrix_plot.png`](./confusion_matrix_plot.png).
+A confusion matrix visualization has been saved as:
+- [`confusion_matrix_nb.png`](./confusion_matrix_nb.png) (Naïve Bayes)
+- [`confusion_matrix_hybrid.png`](./confusion_matrix_hybrid.png) (Hybrid NB + LR)
 
 ---
 
 ## **Threshold Adjustment Analysis**
-- The model previously used a threshold of 0.5, which resulted in **lower recall**.
-- **With a threshold of 0.45:**
-  - More actual delays are caught (higher recall at 55.01%).
-  - More false positives occur (lower precision at 59.45%).
-  - If the cost of missing a delay is higher than predicting a false delay, this is an acceptable tradeoff.
-- We also identify that further tuning could explore thresholds between 0.40 and 0.50 to optimize recall-precision tradeoff.
+- The model used a threshold of 0.45, balancing recall and precision.
+- Lowering the threshold may catch more delays but increase false positives.
+- Further tuning could explore thresholds between 0.40 and 0.50 for optimization.
+
+---
+
+## **Citations**
+- **pandas**: Data handling ([https://pandas.pydata.org/](https://pandas.pydata.org/))
+- **NumPy**: Mathematical operations ([https://numpy.org/](https://numpy.org/))
+- **matplotlib & seaborn**: Data visualization ([https://matplotlib.org/](https://matplotlib.org/), [https://seaborn.pydata.org/](https://seaborn.pydata.org/))
+- **scikit-learn**: Confusion matrix ([https://scikit-learn.org/](https://scikit-learn.org/))
+---
