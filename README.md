@@ -7,7 +7,7 @@ For Milestone 3, we introduced a **Hybrid model that combines Naïve Bayes with 
 - **Naïve Bayes** computes the probability of a flight delay based on categorical features (Airline, Airports, Day of the Week).
 - **Gaussian HMM** models underlying latent states of flight delays based on numerical features (Flight Time and Length), accounting for hidden dependencies between flight conditions.
 
-This approach allows us to analyze **both categorical and continuous variables** together, introducing a **temporal component through HMM** while still leveraging NB’s probability estimates.
+This approach allows us to analyze both categorical and continuous variables together, introducing a temporal component through HMM while still leveraging NB’s probability estimates.
 
 ---
 
@@ -24,13 +24,13 @@ This approach allows us to analyze **both categorical and continuous variables**
 
 ## Why Gaussian HMM? How Does It Differ from Its Discrete Analog?
 
-A **Hidden Markov Model (HMM)** is a **probabilistic model that captures temporal dependencies by modeling an observed sequence with hidden states.** In this case, we assume that **flight delays have underlying latent states** influenced by observed numerical features (Time and Length).
+A Hidden Markov Model (HMM) is a probabilistic model that captures temporal dependencies by modeling an observed sequence with hidden states. In this case, we assume that flight delays have underlying latent states influenced by observed numerical features (Time and Length).
 
 ### Why Not Use a Discrete HMM?
-A **Discrete HMM** models observations as categorical/discrete variables. Since **Time and Length are continuous**, using a discrete HMM would require **binning continuous data into categories**, which may lead to **loss of information and granularity.**
+A Discrete HMM models observations as categorical/discrete variables. Since Time and Length are continuous, using a discrete HMM would require binning continuous data into categories, which may lead to loss of information and granularity.
 
 ### Why Gaussian HMM?
-A **Gaussian HMM** models **continuous variables using Gaussian distributions for each hidden state.** Instead of assuming fixed categories, we allow **each hidden state to follow a Gaussian distribution over numerical features.** This is more suitable for our dataset because:
+A **Gaussian HMM** models continuous variables using Gaussian distributions for each hidden state. Instead of assuming fixed categories, we allow each hidden state to follow a Gaussian distribution over numerical features. This is more suitable for our dataset because:
 - **Flight times and durations vary continuously**, making Gaussian HMMs a better choice.
 - **Delays are influenced by hidden factors (weather, airport congestion, airline scheduling)**, which are best modeled using continuous probability distributions.
 - **Gaussian emissions allow for smoother transitions between delay states** rather than rigid discrete categories.
@@ -86,20 +86,16 @@ An HMM consists of:
 - **Transition probabilities:** Probability of transitioning from one hidden state to another.
 - **Emission probabilities:** Likelihood of observing `Time, Length` given a hidden state.
 
-Mathematically, the **Gaussian HMM** models the probability of an observed sequence \(X = \{X_1, X_2, ..., X_n\}\) as:
+Mathematically, the **Gaussian HMM** models the probability of an observed sequence `(X = \{X_1, X_2, ..., X_n\}` as:
 
-\[
-P(X | \theta) = \sum_{S} P(S_1) P(X_1 | S_1) \prod_{t=2}^{n} P(S_t | S_{t-1}) P(X_t | S_t)
-\]
+`P(X | \theta) = \sum_{S} P(S_1) P(X_1 | S_1) \prod_{t=2}^{n} P(S_t | S_{t-1}) P(X_t | S_t)`
 
 where:
 - \(S_t\) is the hidden state at time \(t\).
-- \(P(S_t | S_{t-1})\) is the **transition probability**.
-- \(P(X_t | S_t)\) is the **emission probability**, modeled as a Gaussian:
+- \(P(S_t | S_{t-1})\) is the transition probability.
+- \(P(X_t | S_t)\) is the emission probability, modeled as a Gaussian:
 
-\[
-P(X_t | S_t = i) = \frac{1}{\sqrt{2\pi\sigma_i^2}} e^{-\frac{(X_t - \mu_i)^2}{2\sigma_i^2}}
-\]
+`P(X_t | S_t = i) = \frac{1}{\sqrt{2\pi\sigma_i^2}} e^{-\frac{(X_t - \mu_i)^2}{2\sigma_i^2}}`
 
 where:
 - \(\mu_i\) and \(\sigma_i^2\) are the mean and variance of state \(i\).
@@ -109,7 +105,7 @@ where:
 ## How Do We Perform Inference?
 
 ### **1. Training (Expectation-Maximization - EM Algorithm)**
-The model is trained using **Expectation-Maximization (EM):**
+The model is trained using Expectation-Maximization (EM):
 - **E-step:** Compute responsibilities (probability of each state given the data).
 - **M-step:** Update state parameters (\(\mu_i, \sigma_i^2\)) based on weighted data points.
 
@@ -166,9 +162,9 @@ For a given flight, we compute:
 | **Hybrid NB + Gaussian HMM** | 45,701 | 194,563 |
 
 **Key Observations**
-- Hybrid model **reduced false positives** (better FPR).
-- However, **missed many actual delays** (higher FNR).
-- Suggests that **HMM’s latent states didn’t generalize well for delay prediction.**
+- Hybrid model reduced false positives (better FPR).
+- However, missed many actual delays (higher FNR).
+- Suggests that HMM’s latent states didn’t generalize well for delay prediction.
 
 ---
 
